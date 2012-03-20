@@ -1,0 +1,35 @@
+{% extends 'SoftCodeGridBundle:Renderer:table.html.twig' %}
+
+{% block grid %}
+    <div ng:init="init('{{ service_id }}')" ng:controller="GridController">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block header %}
+    {{ '{{name}} ({{totalCount}})' }}
+    <a href="#" class="cls"></a>
+    <div class="act">
+        <span ng:repeat="action in actions">
+            {{ '{{action|html:\'unsafe\'}}' }}
+        </span>
+    </div>
+{% endblock %}
+
+{% block columns %}
+    <th ng:repeat="column in columns">
+        {{ '{{column}}' }}
+    </th>
+{% endblock %}
+
+{% block data %}
+    <tr ng:repeat="row in data">
+        <td ng:repeat="column in columns">
+            {{ '{{row[column]|html:\'unsafe\'}}' }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block footer %}
+    {% include 'SoftCodeGridBundle:Paginator:pagePaginator.html.twig' with { 'paginator': grid.paginator } %}
+{% endblock footer %}

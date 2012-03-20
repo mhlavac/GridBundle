@@ -1,0 +1,3 @@
+mhlavac.grid:
+    pattern: _grid/{serviceId}
+    defaults: { _controller: SoftCodeGridBundle:Grid:grid }

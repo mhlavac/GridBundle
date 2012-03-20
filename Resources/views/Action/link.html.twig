@@ -1,0 +1,3 @@
+{% block link -%}
+    <a {% for key, value in action.params %} {{ key }}="{{ value }}"{% endfor %} href="{{ action.link }}">{{ action.name|trans }}</a>
+{%- endblock %}

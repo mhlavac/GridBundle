@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="softcode.gridbundle.renderer.array.class">SoftCode\GridBundle\Renderer\ArrayRenderer</parameter>
+        <parameter key="softcode.gridbundle.renderer.table.class">SoftCode\GridBundle\Renderer\TableRenderer</parameter>
+        <parameter key="softcode.gridbundle.renderer.angularjs.class">SoftCode\GridBundle\Renderer\AngularJsRenderer</parameter>
+    </parameters>
+
+    <services>
+        <service id="grid.renderer.abstract" class="SoftCode\GridBundle\Renderer\AbstractRenderer" abstract="true">
+            <call method="setTemplating">
+                <argument type="service" id="twig" />
+            </call>
+        </service>
+    
+        <service id="grid.renderer.array" class="%softcode.gridbundle.renderer.array.class%" parent="grid.renderer.abstract" />
+        <service id="grid.renderer.table" class="%softcode.gridbundle.renderer.table.class%" parent="grid.renderer.abstract" />
+        <service id="grid.renderer.angularjs" class="%softcode.gridbundle.renderer.angularjs.class%" parent="grid.renderer.table" />
+    </services>
+</container>

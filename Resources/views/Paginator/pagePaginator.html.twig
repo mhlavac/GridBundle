@@ -1,0 +1,20 @@
+<div class="paging">
+    {% set page = '<input name="grid[paginator][page]" type="number" value="' ~ paginator.page ~ '" min="1" max="' ~ paginator.totalPages ~ '" />' %}
+    {% set totalPages = '<strong>' ~ paginator.totalPages ~ '</strong>' %}
+    {% set resultsPerPage = '<input name="grid[paginator][results_per_page]" type="number" value="' ~ paginator.resultsPerPage ~ '" min="1" />' %}
+    {{ 'admin.grid.paging'|trans({'%current_page%': page, '%page_number%': totalPages, '%results%': resultsPerPage})|raw }}
+</div>
+
+<div class="right">
+    {% if paginator.currentPageFirst %}
+        <button type="button" class="pga pg-l-d" /></button>
+    {% else %}
+        <input type="submit" class="pga pg-l" name="grid[paginator][page]" value="{{ paginator.page - 1 }}" />
+    {% endif %}
+
+    {% if paginator.currentPageLast %}
+        <button type="button" class="pga pg-r-d" /></button>
+    {% else %}
+        <input type="submit" class="pga pg-r" name="grid[paginator][page]" value="{{ paginator.page + 1 }}" />
+    {% endif %}
+</div>

@@ -1,0 +1,24 @@
+<form method="post">
+    <div class="grid">
+        <div class="hdr">
+            <a href="#" class="cls"></a>
+            <div class="act">
+                {% for action in actions %}
+                    {{ action|raw }}
+                {% endfor %}
+            </div>
+            {{ name|trans }} <span class="cnt">({{ totalCount }})</span>
+        </div>
+        <div class="cnt">
+            <div class="sea">
+                <input type="hidden" value="{{ '<REPLACE ME>' }}" />
+                <input type="text" name="search" />
+                <input type="submit" name="search" value="{{ 'admin.grid.search'|trans }}" />
+            </div>
+            {{ renderer.render(rows, columns, rowActions)|raw }}
+            <div class="ftr">
+                {% include 'SoftCodeGridBundle:Paginator:pagePaginator.html.twig' with { 'paginator': paginator } %}
+            </div>
+        </div>
+    </div>
+</form>

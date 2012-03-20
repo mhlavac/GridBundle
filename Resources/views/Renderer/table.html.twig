@@ -1,0 +1,68 @@
+{% block grid %}
+<form method="post">
+    <div class="grid">
+        <div class="hdr">
+            {% block header %}
+                <a href="#" class="cls"></a>
+                <div class="act">
+                    {% for action in grid.actions %}
+                        {{ action|raw }}
+                    {% endfor %}
+                </div>
+                {{ grid.name|trans }} <span class="cnt">({{ grid.dataSrouce.totalCount }})</span>
+            {% endblock %}
+        </div>
+        <div class="cnt">
+            {# Table start #}
+            <table>
+
+            {# Header part #}
+            <thead>
+                <tr>
+                    {% block columns %}
+                        {# <th class="chk"><input type="checkbox" /></th> #}
+                        {% for name, column in grid.columns %}
+                            <th>
+                                {# <div class="menu"></div> #}
+                                {{ name|trans }}
+                            </th>
+                        {% endfor %}
+                        <th class="sett"><a href="#"></a></th>
+                    {% endblock %}
+                </tr>
+            </thead>
+
+            {% block data %}
+                {# Data part #}
+                {% if grid.data|length > 0 %}
+                    <tbody>
+                        {% for row in grid.data %}
+                            <tr>
+                                {# <td><input type="checkbox" /></td> #}
+                                {% for key, column in grid.columns %}
+                                    <td>{{ row[key]|raw }}</td>
+                                {% endfor %}
+                                {% if grid.rowActions %}
+                                    <td class="act">
+                                        {% for rowAction in grid.rowActions %}
+                                            {{ rowAction.render(row)|raw }}
+                                        {% endfor %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                {% endif %}
+            {% endblock %}
+
+            {# Table end #}
+            </table>
+            <div class="ftr">
+                {% block footer %}
+                    {% include 'SoftCodeGridBundle:Paginator:pagePaginator.html.twig' with { 'paginator': grid.paginator } %}
+                {% endblock footer %}
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
